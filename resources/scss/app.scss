@@ -6,7 +6,7 @@ body {
     color: $dark;
 }
 
-// NAVBAR STYLING
+// NAVBAR
 nav li:last-child a {
     &:hover {
         background-color: $primary-hover;
@@ -23,7 +23,31 @@ nav li a {
     }
 }
 
-// HERO SECTION STYLING
+// HERO SECTION
 section.hero {
     background-color: $secondary;
+}
+
+// PIZZA MENU
+.size {
+    background: $secondary;
+}
+
+.add-to-cart {
+    &:hover {
+        border-color: $pure;
+        color: $pure;
+        background: $primary;
+    }
+
+    transition: $smooth;
+    border: 2px solid $primary;
+    color: $primary;
+}
+
+.grid-st {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 3rem;
+    row-gap: 4rem;
 }

@@ -48,3 +48,12 @@ section.hero {
   row-gap: 4rem;
 }
 
+.btn-primary {
+  transition: all 0.3s ease-in-out;
+  background: #FE5F1E;
+}
+
+.btn-primary:hover {
+  background: #b23301;
+}
+

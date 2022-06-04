@@ -21,6 +21,14 @@ app.get('/cart', (req, res) => {
     res.render('customers/cart.ejs');
 });
 
+app.get('/login', (req, res) => {
+    res.render('auth/login.ejs');
+});
+
+app.get('/register', (req, res) => {
+    res.render('auth/register.ejs');
+});
+
 app.listen(PORT, () => {
     console.log(`Listening port ${PORT}`);
 }) 

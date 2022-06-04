@@ -61,6 +61,20 @@ section.cart {
     }
 }
 
+// LOGIN AND REGISTER
+section.login {
+    background: $secondary;
+    min-height: calc(100vh - 86px);
+
+    a {
+        &:hover {
+            color: $primary-hover;
+        }
+
+        color: $primary;
+    }
+}
+
 // UTILITY CLASSES
 .btn-primary {
     &:hover {

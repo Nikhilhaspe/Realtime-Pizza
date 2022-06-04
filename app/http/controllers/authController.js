@@ -1,5 +1,6 @@
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 function authController() {
     return {
@@ -8,6 +9,27 @@ function authController() {
         },
         register(req, res) {
             res.render('auth/register.ejs');
+        },
+        postLogin(req, res, next) {
+            // THIS PASSED FUNCTION IS done CALLBACK
+            passport.authenticate('local', (err, user, info) => {
+                if (err) {
+                    req.flash('error', info.message);
+                    return next(err);
+                }
+                if (!user) {
+                    req.flash('error', info.message);
+                    return res.redirect('/login');
+                }
+                req.logIn(user, (err) => {
+                    if (err) {
+                        req.flash('error', info.message);
+                        return next(err);
+                    }
+
+                    return res.redirect('/');
+                });
+            })(req, res, next);
         },
         async postRegister(req, res) {
             const { name, email, password } = req.body;

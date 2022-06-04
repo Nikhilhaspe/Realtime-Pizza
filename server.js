@@ -7,6 +7,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
+const passport = require('passport');
 
 const PORT = process.env.PORT || 3000;
 
@@ -49,6 +50,12 @@ app.use(session({
     }),
     cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
+
+// PASSPORT MIDDLEWARE CONFIGURATION
+const passportInit = require('./app/config/passport');
+passportInit(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // GLOBAL MIDDLEWARES
 // WE CANT ACCESS SESSION DIRECTLY IN THE LAYOUT FILE SO WE NEED TO HAVE GLOBAL MIDDLEWARES

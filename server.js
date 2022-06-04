@@ -12,23 +12,9 @@ app.use(express.static('public'));
 app.set('views', path.join(__dirname, '/resources/views'));
 app.set('view engine', 'ejs');
 
-// ROUTES
-app.get('/', (req, res) => {
-    res.render('home.ejs');
-});
-
-app.get('/cart', (req, res) => {
-    res.render('customers/cart.ejs');
-});
-
-app.get('/login', (req, res) => {
-    res.render('auth/login.ejs');
-});
-
-app.get('/register', (req, res) => {
-    res.render('auth/register.ejs');
-});
+// ROUTES CALLING
+require('./routes/web')(app);
 
 app.listen(PORT, () => {
     console.log(`Listening port ${PORT}`);
-}) 
+});

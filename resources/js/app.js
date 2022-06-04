@@ -1,4 +1,7 @@
+// FOR MAKING REQUESTS
 import axios from 'axios';
+// FOR NOTIFICATIONS
+import Noty from 'noty';
 
 // CART COUNTER HANDLING
 let cartCounter = document.getElementById('cart-counter');
@@ -9,6 +12,20 @@ let addToCart = document.querySelectorAll('.add-to-cart');
 function updateCart(pizza) {
     axios.post('/update-cart', pizza).then(res => {
         cartCounter.innerText = res.data.totalQty;
+        // NOTY NOTIFICATIONS
+        new Noty({
+            text: 'Pizza Added to cart 😋',
+            type: 'success',
+            timeout: 1000,
+            progressBar: false
+        }).show();
+    }).catch(err => {
+        new Noty({
+            text: 'Something went wrong 😢',
+            type: 'error',
+            timeout: 1000,
+            progressBar: false
+        }).show();
     });
 };
 

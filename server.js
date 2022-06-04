@@ -16,6 +16,11 @@ const MongoDbStore = require('connect-mongo');
 // TELLING SERVER TO STORE JSON REQ DATA IN req.body
 app.use(express.json());
 
+// TELLING EXPRESS TO GET URL ENCODED DATA SENT VIA FORMS IN REQ
+app.use(express.urlencoded({
+    extended: false
+}));
+
 // MIDDLEWARES
 app.use(flash());
 app.use(expressLayout);

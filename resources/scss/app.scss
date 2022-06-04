@@ -52,6 +52,15 @@ section.hero {
     row-gap: 4rem;
 }
 
+// CART SECTION
+section.cart {
+    background: $secondary;
+
+    .amount {
+        color: $primary;
+    }
+}
+
 // UTILITY CLASSES
 .btn-primary {
     &:hover {

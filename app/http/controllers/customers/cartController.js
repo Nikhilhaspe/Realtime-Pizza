@@ -13,7 +13,6 @@ function cartController() {
                 }
             }
             let cart = req.session.cart;
-            console.log(req.body);
             if (!cart.items[req.body._id]) {
                 cart.items[req.body._id] = {
                     item: req.body,

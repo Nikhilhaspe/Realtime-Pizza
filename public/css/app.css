@@ -376,6 +376,99 @@ a.link {
   color: #FE5F1E;
 }
 
+section.status {
+  background: #F8F8F8;
+  min-height: calc(100vh - 86px);
+}
+
+.status-box {
+  padding: 25px 0 0;
+}
+
+.status-box ul {
+  margin-left: 84px;
+}
+
+.status-box ul li span {
+  position: relative;
+  padding-left: 20px;
+}
+
+.status-box ul li span:after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #232323;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 10px #F8F8F8;
+}
+
+.status-box ul li span:before {
+  position: absolute;
+  left: -90px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.status-box ul li:nth-child(1) span:before {
+  content: url("/img/_1.png");
+}
+
+.status-box ul li:nth-child(2) span:before {
+  content: url("/img/_2.png");
+}
+
+.status-box ul li:nth-child(3) span:before {
+  content: url("/img/_3.png");
+}
+
+.status-box ul li:nth-child(4) span:before {
+  content: url("/img/_4.png");
+}
+
+.status-box ul li:nth-child(5) span:before {
+  content: url("/img/_5.png");
+}
+
+.status-box ul li {
+  position: relative;
+}
+
+.status-box ul li:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 2px;
+  height: 100%;
+  background: #232323;
+  margin-top: 10px;
+}
+
+.status-box ul li:nth-child(5) span:after {
+  box-shadow: 0 20px 1px 20px #F8F8F8;
+}
+
+.status-box ul li.step-completed:before {
+  background: #ccc;
+}
+
+.status-box ul li span.mk-grey:before {
+  filter: grayscale(100%);
+}
+
+.status-box ul li.step-completed span:after {
+  background: #ccc;
+}
+
+.status-box ul li.step-completed span {
+  color: #ccc;
+}
+
 .btn-primary {
   transition: all 0.3s ease-in-out;
   background: #FE5F1E;

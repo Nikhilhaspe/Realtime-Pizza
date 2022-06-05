@@ -29884,7 +29884,26 @@ if (alertMsg) {
 } // ADMIN EVENTS
 
 
-Object(_admin_js__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])();
+Object(_admin_js__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(); // CHANGE STATUS OF THE ORDER
+
+var statuses = document.querySelectorAll('.status_line');
+var hiddentInput = document.querySelector('#hiddenInput');
+var order = hiddentInput ? hiddentInput.value : null;
+order = JSON.parse(order);
+
+function updateStatus(order) {
+  var stepCompleted = true;
+  statuses.forEach(function (status) {
+    var dataProp = status.dataset.status;
+
+    if (dataProp === order.status) {
+      status.classList.remove('step-completed');
+      status.children.item(0).classList.remove('mk-grey');
+    }
+  });
+}
+
+updateStatus(order);
 
 /***/ }),
 

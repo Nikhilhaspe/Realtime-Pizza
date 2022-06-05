@@ -50,3 +50,22 @@ if (alertMsg) {
 
 // ADMIN EVENTS
 initAdmin();
+
+// CHANGE STATUS OF THE ORDER
+let statuses = document.querySelectorAll('.status_line');
+let hiddentInput = document.querySelector('#hiddenInput');
+let order = hiddentInput ? hiddentInput.value : null;
+order = JSON.parse(order);
+
+function updateStatus(order) {
+    let stepCompleted = true;
+    statuses.forEach((status) => {
+        let dataProp = status.dataset.status;
+        if (dataProp === order.status) {
+            status.classList.remove('step-completed');
+            (status.children.item(0).classList).remove('mk-grey');
+        }
+    })
+}
+
+updateStatus(order);

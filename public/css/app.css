@@ -478,6 +478,12 @@ section.status {
   background: #b23301;
 }
 
+.status-box ul li small {
+  float: right;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
 .noty_theme__mint {
   border-radius: 50px !important;
   padding-left: 8px !important;

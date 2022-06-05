@@ -2,6 +2,8 @@
 import axios from 'axios';
 // FOR NOTIFICATIONS
 import Noty from 'noty';
+// FOR TIME AND DATE FORMATION
+import moment from 'moment';
 
 // ADMIN JS FILE
 import { initAdmin } from './admin.js';
@@ -56,12 +58,23 @@ let statuses = document.querySelectorAll('.status_line');
 let hiddentInput = document.querySelector('#hiddenInput');
 let order = hiddentInput ? hiddentInput.value : null;
 order = JSON.parse(order);
+// ADDING TIME FIELD TO EACH ORDER STATUS
+let time = document.createElement('small');
 
 function updateStatus(order) {
+    //  SETTING SOME CLASSES FOR REALTIME RENDER
+    statuses.forEach((status) => {
+        status.classList.add('step-completed');
+        (status.children.item(0).classList).add('mk-grey');
+    });
+
+    // SETTING UP LATEST UPDATE
     let stepCompleted = true;
     statuses.forEach((status) => {
         let dataProp = status.dataset.status;
         if (dataProp === order.status) {
+            time.innerText = moment(order.updatedAt).format('hh:mm A');
+            status.appendChild(time);
             status.classList.remove('step-completed');
             (status.children.item(0).classList).remove('mk-grey');
         }
@@ -69,3 +82,23 @@ function updateStatus(order) {
 }
 
 updateStatus(order);
+
+// SOCKET CODE
+let socket = io();
+// Joining Room
+if (order) {
+    socket.emit('join', `order_${order._id}`);
+};
+
+socket.on('orderUpdated', (data) => {
+    const updatedOrder = { ...order };
+    updatedOrder.updatedAt = moment().format();
+    updatedOrder.status = data.status;
+    updateStatus(updatedOrder);
+    new Noty({
+        text: 'Order Updated 😋',
+        type: 'success',
+        timeout: 1000,
+        progressBar: false
+    }).show();
+});

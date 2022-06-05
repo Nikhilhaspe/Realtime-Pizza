@@ -199,6 +199,13 @@ section.status {
     background: $primary;
 }
 
+// TIME IN LI
+.status-box ul li small {
+    float: right;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
 // NOTY MODIFICATION FOR MESSAGES
 .noty_theme__mint {
     border-radius: 50px !important;

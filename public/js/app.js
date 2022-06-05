@@ -29834,9 +29834,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var noty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! noty */ "./node_modules/noty/lib/noty.js");
 /* harmony import */ var noty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(noty__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _admin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admin.js */ "./resources/js/admin.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _admin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin.js */ "./resources/js/admin.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 // FOR MAKING REQUESTS
  // FOR NOTIFICATIONS
+
+ // FOR TIME AND DATE FORMATION
 
  // ADMIN JS FILE
 
@@ -29884,26 +29894,57 @@ if (alertMsg) {
 } // ADMIN EVENTS
 
 
-Object(_admin_js__WEBPACK_IMPORTED_MODULE_2__["initAdmin"])(); // CHANGE STATUS OF THE ORDER
+Object(_admin_js__WEBPACK_IMPORTED_MODULE_3__["initAdmin"])(); // CHANGE STATUS OF THE ORDER
 
 var statuses = document.querySelectorAll('.status_line');
 var hiddentInput = document.querySelector('#hiddenInput');
 var order = hiddentInput ? hiddentInput.value : null;
-order = JSON.parse(order);
+order = JSON.parse(order); // ADDING TIME FIELD TO EACH ORDER STATUS
+
+var time = document.createElement('small');
 
 function updateStatus(order) {
+  //  SETTING SOME CLASSES FOR REALTIME RENDER
+  statuses.forEach(function (status) {
+    status.classList.add('step-completed');
+    status.children.item(0).classList.add('mk-grey');
+  }); // SETTING UP LATEST UPDATE
+
   var stepCompleted = true;
   statuses.forEach(function (status) {
     var dataProp = status.dataset.status;
 
     if (dataProp === order.status) {
+      time.innerText = moment__WEBPACK_IMPORTED_MODULE_2___default()(order.updatedAt).format('hh:mm A');
+      status.appendChild(time);
       status.classList.remove('step-completed');
       status.children.item(0).classList.remove('mk-grey');
     }
   });
 }
 
-updateStatus(order);
+updateStatus(order); // SOCKET CODE
+
+var socket = io(); // Joining Room
+
+if (order) {
+  socket.emit('join', "order_".concat(order._id));
+}
+
+;
+socket.on('orderUpdated', function (data) {
+  var updatedOrder = _objectSpread({}, order);
+
+  updatedOrder.updatedAt = moment__WEBPACK_IMPORTED_MODULE_2___default()().format();
+  updatedOrder.status = data.status;
+  updateStatus(updatedOrder);
+  new noty__WEBPACK_IMPORTED_MODULE_1___default.a({
+    text: 'Order Updated 😋',
+    type: 'success',
+    timeout: 1000,
+    progressBar: false
+  }).show();
+});
 
 /***/ }),
 

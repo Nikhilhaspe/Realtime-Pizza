@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
+const Emitter = require('events');
 
 const PORT = process.env.PORT || 3000;
 
@@ -39,6 +40,10 @@ connection.once('open', () => {
 }).on('error', err => {
     console.log('Connection failed to Pizzas :: MONGO-DB');
 });
+
+// EVENT EMITTER
+const eventEmitter = new Emitter();
+app.set('eventEmitter', eventEmitter);
 
 // SESSION CONFIGURATION (MIDDLEWARE)
 app.use(session({
@@ -73,6 +78,20 @@ app.set('view engine', 'ejs');
 // ROUTES CALLING
 require('./routes/web')(app);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Listening port ${PORT}`);
+});
+
+// SOCKET CONNECTIONS TO THE CLIENTS
+const io = require('socket.io')(server);
+io.on('connection', (socket) => {
+    console.log(socket.id);
+    socket.on('join', (orderId) => {
+        console.log(orderId);
+        socket.join(orderId);
+    });
+});
+
+eventEmitter.on('orderUpdated', (data) => {
+    io.to(`order_${data.id}`).emit('orderUpdated', data);
 });

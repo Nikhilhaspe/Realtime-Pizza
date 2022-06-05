@@ -83,9 +83,6 @@ updateStatus(order);
 // SOCKET CODE
 let socket = io();
 
-// ADMIN EVENTS
-initAdmin(socket);
-
 // Joining Room
 if (order) {
     socket.emit('join', `order_${order._id}`);
@@ -94,7 +91,10 @@ if (order) {
 // SOCKETS FOR ADMIN FOR REALTIME ORDER GETTING
 let adminAreaPath = window.location.pathname;
 if (adminAreaPath.includes('admin')) {
-    socket.emit('join', 'adminRoom'); 
+    // ADMIN EVENTS
+    initAdmin(socket);
+    
+    socket.emit('join', 'adminRoom');
 }
 
 

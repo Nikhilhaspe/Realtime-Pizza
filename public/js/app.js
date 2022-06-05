@@ -29939,9 +29939,7 @@ function updateStatus(order) {
 
 updateStatus(order); // SOCKET CODE
 
-var socket = io(); // ADMIN EVENTS
-
-Object(_admin_js__WEBPACK_IMPORTED_MODULE_3__["initAdmin"])(socket); // Joining Room
+var socket = io(); // Joining Room
 
 if (order) {
   socket.emit('join', "order_".concat(order._id));
@@ -29952,6 +29950,8 @@ if (order) {
 var adminAreaPath = window.location.pathname;
 
 if (adminAreaPath.includes('admin')) {
+  // ADMIN EVENTS
+  Object(_admin_js__WEBPACK_IMPORTED_MODULE_3__["initAdmin"])(socket);
   socket.emit('join', 'adminRoom');
 }
 

@@ -87,7 +87,6 @@ const io = require('socket.io')(server);
 io.on('connection', (socket) => {
     console.log(socket.id);
     socket.on('join', (orderId) => {
-        console.log(orderId);
         socket.join(orderId);
     });
 });

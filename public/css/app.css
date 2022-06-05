@@ -345,7 +345,7 @@ section.hero {
 
 .grid-st {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
   -moz-column-gap: 3rem;
        column-gap: 3rem;
   row-gap: 4rem;
@@ -487,5 +487,43 @@ section.status {
 .noty_theme__mint {
   border-radius: 50px !important;
   padding-left: 8px !important;
+}
+
+@media (max-width: 1060px) {
+  .container {
+    max-width: 90%;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-st {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .status-box ul li span:before {
+    height: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-st {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-st {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 

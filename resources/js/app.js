@@ -3,6 +3,9 @@ import axios from 'axios';
 // FOR NOTIFICATIONS
 import Noty from 'noty';
 
+// ADMIN JS FILE
+import { initAdmin } from './admin.js';
+
 // CART COUNTER HANDLING
 let cartCounter = document.getElementById('cart-counter');
 
@@ -36,3 +39,14 @@ addToCart.forEach((btn) => {
         updateCart(pizza);
     })
 });
+
+// REMOVE ALERT MESSAGE AFTER X SECONDS
+const alertMsg = document.querySelector('#success-alert');
+if (alertMsg) {
+    setTimeout(() => {
+        alertMsg.remove();
+    }, 3000);
+}
+
+// ADMIN EVENTS
+initAdmin();

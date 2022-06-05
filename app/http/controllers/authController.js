@@ -3,6 +3,11 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 function authController() {
+    // CHECKING ROLE OF THE USER SO THAT WE CAN DECIDE CUSTOMER OR ADMIN TO ROUTE PATH AFTER LOG IN
+    const _getRedirectUrl = (req) => {
+        return req.user.role === 'admin' ? '/admin/orders' : '/customer/orders';
+    }
+
     return {
         login(req, res) {
             res.render('auth/login.ejs');
@@ -11,6 +16,12 @@ function authController() {
             res.render('auth/register.ejs');
         },
         postLogin(req, res, next) {
+            const { email, password } = req.body;
+            // VALIDATING REQUEST
+            if (!email || !password) {
+                req.flash('error', 'All fields are required');
+                return res.redirect('/register');
+            }
             // THIS PASSED FUNCTION IS done CALLBACK
             passport.authenticate('local', (err, user, info) => {
                 if (err) {
@@ -27,7 +38,7 @@ function authController() {
                         return next(err);
                     }
 
-                    return res.redirect('/');
+                    return res.redirect(_getRedirectUrl(req));
                 });
             })(req, res, next);
         },

@@ -18,10 +18,16 @@ function orderController() {
                 address
             });
             order.save().then(result => {
-                req.flash('success', 'Order Placed Successfully!');
-                // DELETING CART AFTER ORDER IS PLACED
-                delete req.session.cart;
-                res.redirect('/customer/orders');
+                // POPULATING CUSTOMER NAME
+                Order.populate(result, { path: 'customerId' }, (err, placedOrder) => {
+                    req.flash('success', 'Order Placed Successfully!');
+                    // DELETING CART AFTER ORDER IS PLACED
+                    delete req.session.cart;
+                    // EMIT EVENT TO ADMIN FOR REALTIME ORDERS
+                    const eventEmitter = req.app.get('eventEmitter');
+                    eventEmitter.emit('orderPlaced', placedOrder);
+                    res.redirect('/customer/orders');
+                });
             }).catch(err => {
                 req.flash('error', 'Something went wrong');
                 return res.redirect('/cart');

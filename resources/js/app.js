@@ -50,9 +50,6 @@ if (alertMsg) {
     }, 3000);
 }
 
-// ADMIN EVENTS
-initAdmin();
-
 // CHANGE STATUS OF THE ORDER
 let statuses = document.querySelectorAll('.status_line');
 let hiddentInput = document.querySelector('#hiddenInput');
@@ -85,10 +82,21 @@ updateStatus(order);
 
 // SOCKET CODE
 let socket = io();
+
+// ADMIN EVENTS
+initAdmin(socket);
+
 // Joining Room
 if (order) {
     socket.emit('join', `order_${order._id}`);
 };
+
+// SOCKETS FOR ADMIN FOR REALTIME ORDER GETTING
+let adminAreaPath = window.location.pathname;
+if (adminAreaPath.includes('admin')) {
+    socket.emit('join', 'adminRoom'); 
+}
+
 
 socket.on('orderUpdated', (data) => {
     const updatedOrder = { ...order };

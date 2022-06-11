@@ -13,10 +13,12 @@ All menu information, users, orders are stored in the **MongoDB** database.
 
 ### Customer side
 This is how web site look like when **customer** visits web site.
+
 ![This is an image](/screenshots/customer.gif)
 
 ### Admin side
 User interface for **admin** (i.e. Pizzeria Owner)
+
 ![This is an image](/screenshots/customer.gif)
 
 

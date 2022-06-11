@@ -2,13 +2,19 @@
 # Realtime Pizza Ordering System
 The idea behind this application is to handle orders given by the customers 
 to pizzeria online and managing realtime status between customers and admin 
-(i.e. Hotel Owner) with the help of web sockets.
+(i.e. Pizzeria Owner) with the help of web sockets.
 
 ## Technical Overview
 This is project built using **Node.js** and it uses the data stored in the database.
 All menu information, users, orders are stored in the **MongoDB** database.
 
 ## Working of the website
+### Customer side
+This is how web site look like when customer visits web site.
+![This is an image](/screenshots/customer.gif)
+### Admin side
+User interface for admin (i.e. Pizzeria Owner)
+![This is an image](/screenshots/customer.gif)
 
 
 ## How to run this project?

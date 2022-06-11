@@ -27,10 +27,11 @@ User interface for **admin** (i.e. Pizzeria Owner)
 * Install MongoDB Compass from official website.
 * Create new database and import data to that database by using this [JSON](https://drive.google.com/file/d/1rUzOvYlVh_xO4ConfSuhRzt6cn8xUZIf/view) file.
 * Clone this repository.
+* Install all dependecies.
 * Go to the terminal and enter yarn watch to run bundling of files.
 * After that enter yarn dev to run development server.
 * Finally, in any browser go to localhost (http://localhost:3000/).
-* If you encounter any error during these steps see notes section below.
+* If you encounter any error during these steps see [note](#note) section below.
 
 ## Note
 * Before running this project make sure that you have installed yarn and all the dependencies of the project.

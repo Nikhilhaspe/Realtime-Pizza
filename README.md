@@ -19,7 +19,7 @@ This is how web site look like when **customer** visits web site.
 ### Admin side
 User interface for **admin** (i.e. Pizzeria Owner)
 
-![This is an image](/screenshots/customer.gif)
+![This is an image](/screenshots/admin.gif)
 
 
 ## How to run this project?
